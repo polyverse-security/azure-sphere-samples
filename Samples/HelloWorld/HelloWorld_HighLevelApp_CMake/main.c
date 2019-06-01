@@ -28,74 +28,20 @@ int main(void)
 {
     Log_Debug("Starting CMake Hello World application...\n");
 
-//	say((char *) "Hello world!");
-	//char s[256];
-	//char t[256];
+	init();
 
-	Log_Debug("s: %p", (void *)&foo1);
-	Log_Debug("t: %p", (void *)&foo2);
-	//char * argv[] = { s, t, "hey ho" };
-	//chat(sizeof(argv)/sizeof(argv[0]), argv);
-
-    //int fd = GPIO_OpenAsOutput(SAMPLE_LED, GPIO_OutputMode_PushPull, GPIO_Value_High);
-    //if (fd < 0) {
-     //   Log_Debug(
-    //        "Error opening GPIO: %s (%d). Check that app_manifest.json includes the GPIO used.\n",
-    //        strerror(errno), errno);
-    //    return -1;
-    //}
-
-    const struct timespec sleepTime = {1, 0};
-	int fd;
-	int fd_red = GPIO_OpenAsOutput(SAMPLE_RGBLED_RED, GPIO_OutputMode_PushPull, GPIO_Value_High);
-	if (fd < 0) {
-		Log_Debug("Error opening GPIO: %s (%d). Check that app_manifest.json includes the GPIO used.\n", strerror(errno), errno);
-		return -1;
+	Log_Debug("foo1: %p\n", (void *)&foo1);
+	for (int i = 3; i >= 0; i--) {
+		show(((unsigned long)&foo1 >> (4 * i)) & 0x0F);
 	}
 
-	int fd_green = GPIO_OpenAsOutput(SAMPLE_RGBLED_GREEN, GPIO_OutputMode_PushPull, GPIO_Value_High);
-	if (fd < 0) {
-		Log_Debug("Error opening GPIO: %s (%d). Check that app_manifest.json includes the GPIO used.\n", strerror(errno), errno);
-		return -1;
+	Log_Debug("foo2: %p\n", (void *)&foo2);
+	for (int i = 3; i >= 0; i--) {
+		show(((unsigned long)&foo2 >> (4 * i)) & 0x0F);
 	}
 
-	int fd_blue = GPIO_OpenAsOutput(SAMPLE_RGBLED_BLUE, GPIO_OutputMode_PushPull, GPIO_Value_High);
-	if (fd < 0) {
-		Log_Debug("Error opening GPIO: %s (%d). Check that app_manifest.json includes the GPIO used.\n", strerror(errno), errno);
-		return -1;
+	Log_Debug("foo3: %p\n", (void *)&foo3);
+	for (int i = 3; i >= 0; i--) {
+		show(((unsigned long)&foo3 >> (4 * i)) & 0x0F);
 	}
-
-	int fd_led1_blue = GPIO_OpenAsOutput(MT3620_RDB_LED1_BLUE, GPIO_OutputMode_PushPull, GPIO_Value_High);
-	//int fd_led1_blue = GPIO_OpenAsOutput(SAMPLE_LED, GPIO_OutputMode_PushPull, GPIO_Value_High);
-	if (fd < 0) {
-		Log_Debug("Error opening GPIO: %s (%d). Check that app_manifest.json includes the GPIO used.\n", strerror(errno), errno);
-		return -1;
-	}
-
-    while (true) {
-		Log_Debug("red\n");
-        GPIO_SetValue(fd_red, GPIO_Value_Low);
-        nanosleep(&sleepTime, NULL);
-        GPIO_SetValue(fd_red, GPIO_Value_High);
-        nanosleep(&sleepTime, NULL);
-
-		Log_Debug("green\n");
-		GPIO_SetValue(fd_green, GPIO_Value_Low);
-		nanosleep(&sleepTime, NULL);
-		GPIO_SetValue(fd_green, GPIO_Value_High);
-		nanosleep(&sleepTime, NULL);
-
-		Log_Debug("blue\n");
-		GPIO_SetValue(fd_blue, GPIO_Value_Low);
-		nanosleep(&sleepTime, NULL);
-		GPIO_SetValue(fd_blue, GPIO_Value_High);
-		nanosleep(&sleepTime, NULL);
-
-		Log_Debug("led 1 blue\n");
-		GPIO_SetValue(fd_led1_blue, GPIO_Value_Low);
-		nanosleep(&sleepTime, NULL);
-		GPIO_SetValue(fd_led1_blue, GPIO_Value_High);
-		nanosleep(&sleepTime, NULL);
-
-    }
 }
