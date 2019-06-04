@@ -30,14 +30,14 @@ int main(void)
 
 	init();
 
-	Log_Debug("foo1: %p\n", (void *)&foo1);
+	Log_Debug("show: %p\n", (void *)&show);
 	for (int i = 3; i >= 0; i--) {
-		show(((unsigned long)&foo1 >> (4 * i)) & 0x0F);
+		show(((unsigned long)&show >> (4 * i)) & 0x0F);
 	}
 
-	Log_Debug("foo2: %p\n", (void *)&foo2);
+	Log_Debug("init: %p\n", (void *)&init);
 	for (int i = 3; i >= 0; i--) {
-		show(((unsigned long)&foo2 >> (4 * i)) & 0x0F);
+		show(((unsigned long)&init >> (4 * i)) & 0x0F);
 	}
 
 	Log_Debug("foo3: %p\n", (void *)&foo3);
